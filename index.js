@@ -39,7 +39,8 @@ app.post('/get_hours', (req, res) => {
     }
 
     const resultText = `Today, we're open from ${todayHours.open} until ${todayHours.close}.`;
-    return res.status(200).json({ result: resultText });
+    res.setHeader("Content-Type", "application/json");
+return res.send(JSON.stringify({ result: resultText }));
 
   } catch (err) {
     console.error('Error:', err);
