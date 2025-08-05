@@ -43,7 +43,7 @@ app.post('/get_hours', (req, res) => {
     const todayHours = hours[today];
 
     if (!todayHours) {
-      return res.status(500).send("Sorry, I couldn't retrieve today's hours.");
+      return res.status(500).json({ message: "Sorry, I couldn't retrieve today's hours." });
     }
 
     let openTime = parseTimeToDateTime(todayHours.open, now);
@@ -62,11 +62,10 @@ app.post('/get_hours', (req, res) => {
 
     const resultText = `Today, we're open from ${todayHours.open} until ${todayHours.close}. ${statusLine}`;
 
-    res.setHeader('Content-Type', 'text/plain');
-    return res.status(200).send(resultText);
+    return res.status(200).json({ message: resultText });
   } catch (err) {
     console.error('❌ Error:', err);
-    return res.status(500).send("Something went wrong retrieving today's hours.");
+    return res.status(500).json({ message: "Something went wrong retrieving today's hours." });
   }
 });
 
